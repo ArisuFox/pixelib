@@ -1,21 +1,54 @@
-name: Running this script
-
-on: [push]
+on:
+  push:
+    branches: 
+      - master
 
 jobs:
-  testing:
-    name: Testing a script.
-    runs-on: [linux]
+  linting:
+    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: [3.6]
     steps:
-      - run: |
-          python3 PixeLib.py
-  importing:
-    name: Importing a script as a Python 3 library.
-    runs-on: [linux]
+      - uses: actions/checkout@v1
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Installing pylint library
+        run: python -m pip install pylint
+      - name: Checking linting
+        run: python -m pylint PixeLib.py -E
+  as_script:
+    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-latest: [3.6]
     steps:
-      - run: |
-          python3
-          import PixeLib
-          # FILENAME is a path to an image file.
-          template = Photo(FILENAME)
-          pixel(template)
+      - uses: actions/checkout@v1
+      - name: Installing missing libraries
+        run: sudo apt install catimg
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Running a script
+        run: python PixeLib.py
+  as_library:
+    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-latest: [3.6]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Installing missing libraries
+        run: sudo apt install catimg
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Running a script
+        run: python3 -c "import PixeLib"
