@@ -5,7 +5,7 @@ Download the source code:
 ```bash
 git clone https://github.com/ArisuFox/pixelib.git
 ```
-And import a PixeLib.py in your file:
+And import PixeLib.py in your Python file:
 ```python
 ...
 import PixeLib
