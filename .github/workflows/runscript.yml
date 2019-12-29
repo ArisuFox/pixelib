@@ -20,22 +20,6 @@ jobs:
         run: python -m pip install pylint
       - name: Checking linting
         run: python -m pylint PixeLib.py -E
-  as_script:
-    runs-on: [ubuntu-latest]
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        python-latest: [3.6]
-    steps:
-      - uses: actions/checkout@v1
-      - name: Installing missing libraries
-        run: sudo apt install catimg
-      - name: Set up Python
-        uses: actions/setup-python@v1
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Running a script
-        run: python3 PixeLib.py
   as_library:
     runs-on: [ubuntu-latest]
     strategy:
