@@ -1,0 +1,21 @@
+name: Running this script
+
+on: [push]
+
+jobs:
+  testing:
+    name: Testing a script.
+    runs-on: [linux]
+    steps:
+      - run: |
+          python3 PixeLib.py
+  importing:
+    name: Importing a script as a Python 3 library.
+    runs-on: [linux]
+    steps:
+      - run: |
+          python3
+          import PixeLib
+          # FILENAME is a path to an image file.
+          template = Photo(FILENAME)
+          pixel(template)
