@@ -35,7 +35,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Running a script
-        run: python PixeLib.py
+        run: python3 PixeLib.py
   as_library:
     runs-on: [ubuntu-latest]
     strategy:
